@@ -87,8 +87,6 @@ make clean
 ### 1. Копируем и запихиваем
 
 ```bash
-mkdir -p /home/droidbook/LinuxMIPT-2026/root/tmp
-
 cp tg_fs.ko  /home/droidbook/LinuxMIPT-2026/root/
 cp tg_server /home/droidbook/LinuxMIPT-2026/root/
 cp tg_client /home/droidbook/LinuxMIPT-2026/root/

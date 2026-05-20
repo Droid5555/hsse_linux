@@ -99,6 +99,13 @@ static void fill_chats(void) {
     chat_add_message(chat_, "Rico", "@^#$*@#&!)!@($&)!#@*&%((*!&!*@(!*$&*@*#&%!**!@&$(!@@&$^");
 }
 
+static void ensure_tmp_dir(void) {
+    if (mkdir("/tmp", 0755) < 0 && errno != EEXIST) {
+        perror("/tmp");
+        exit(EXIT_FAILURE);
+    }
+}
+
 static void check_fifo(const char *path) {
     struct stat st;
     if (stat(path, &st) == 0) {
@@ -246,6 +253,7 @@ int main(void) {
 
     fill_chats();
 
+    ensure_tmp_dir();
     check_fifo(PIPE_K2D);
     check_fifo(PIPE_D2K);
 
