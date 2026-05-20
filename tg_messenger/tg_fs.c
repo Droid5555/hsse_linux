@@ -426,16 +426,6 @@ static struct proc_dir_entry *tg_create_proc_chat(const char *name) {
     return pde;
 }
 
-static void ensure_tmp_dir(void) {
-    char *argv[] = {"/bin/mkdir", "-p", "/tmp", NULL};
-    char *envp[] = {"HOME=/", "PATH=/sbin:/bin:/usr/bin", NULL};
-
-    int ret = call_usermodehelper(argv[0], argv, envp, UMH_WAIT_PROC);
-    if (ret) {
-        pr_info("tg_fs: mkdir /tmp returned %d\n", ret);
-    }
-}
-
 static void create_fifo(const char *path) {
     char *argv[] = {"/bin/mknod", "-m", "0666", (char *) path, "p", NULL};
     char *envp[] = {"HOME=/", "PATH=/sbin:/bin:/usr/bin", NULL};
@@ -450,7 +440,6 @@ static void create_fifo(const char *path) {
 }
 
 static int __init telegram_fs_init(void) {
-    ensure_tmp_dir();
     create_fifo(PIPE_K2D);
     create_fifo(PIPE_D2K);
 

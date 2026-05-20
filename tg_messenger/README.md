@@ -16,14 +16,14 @@ cat /proc/telegram/ch1  ──────►  chat_read()
                                     { op=TG_OP_READ,
                                       chat="ch1" }
                                         │
-                              /tmp/tg_k2d  (FIFO)
+                                /tg_k2d  (FIFO)
                                         │
 tg_server (daemon)  ◄─────────────┘
   finds ch1 in memory
   builds message list
   fills struct tg_response
         │
-        └──────────────────►  /tmp/tg_d2k  (FIFO)
+        └──────────────────►    /tg_d2k  (FIFO)
                                         │
                                     kernel reads response
                                     copy_to_user(buf, resp.data)

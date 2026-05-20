@@ -24,8 +24,8 @@
 #define TG_OP_CLEAR             7
 #define TG_OP_SET_LIMIT         8
 
-#define PIPE_K2D                "/tmp/tg_k2d"
-#define PIPE_D2K                "/tmp/tg_d2k"
+#define PIPE_K2D                "/tg_k2d"
+#define PIPE_D2K                "/tg_d2k"
 
 struct tg_request {
     int op;
