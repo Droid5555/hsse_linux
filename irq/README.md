@@ -34,6 +34,7 @@ key press/release -> i8042 -> IRQ1 -> top half (irq handler)
 - Переносит тяжёлую обработку в `workqueue` (`schedule_work`)
 - Хранит события в кольцевом буфере (`ring buffer`, 256 записей)
 - Экспортирует события через `/proc/edu_kbd_monitor`
+- Экспортирует набранный текст через `/proc/edu_kbd_text`
 - Корректно освобождает ресурсы в unload: `free_irq`, `cancel_work_sync`, удаление `/proc`
 
 ### `edu_kbd_monitor.h`
@@ -59,8 +60,7 @@ key press/release -> i8042 -> IRQ1 -> top half (irq handler)
 ## Build
 
 ```bash
-make
-make clean
+make clean && make
 ```
 
 ---
@@ -97,6 +97,9 @@ dmesg -n 1
 # Чекаем ринг буффер через procfs
 cat /proc/edu_kbd_monitor
 
+# Сплошной текст
+cat /proc/edu_kbd_text
+
 # смотрим логи:
 dmesg | grep edu_kbd_monitor
 
@@ -108,6 +111,13 @@ dmesg -n 7
 ```text
 P 0x1e A
 R 0x9e A
+```
+
+`cat /proc/edu_kbd_text`:
+
+```text
+hello world
+bye world
 ```
 
 В `dmesg`:
@@ -139,3 +149,4 @@ poweroff -f
 
 - Неопознанные символы помечаются как `UNKNOWN`
 - `RAW FIFO` и `event ring` имеют фиксированный размер 256
+- В тексте поддержаны буквы, цифры, базовая пунктуация, `Space`, `Enter`, `Tab`, `Backspace`

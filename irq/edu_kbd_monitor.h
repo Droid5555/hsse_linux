@@ -8,6 +8,7 @@
 #define RAW_FIFO_SIZE 256
 #define RING_BUFF_SIZE 256
 #define PROC_BUFFER_SIZE (64 * 1024)
+#define TEXT_BUFFER_SIZE 4096
 
 struct kbd_event {
     u8 scancode;
